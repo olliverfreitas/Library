@@ -126,7 +126,7 @@ public class Menu implements ActionListener{
             JOptionPane.showMessageDialog(null, "Funcionando.");
         }
         if (e.getSource() == btnFuncionario) {
-            new TelaFuncionario().criarTela();
+            new TelaFuncionario().abrirTela();
             janela.dispose();
         }
     }

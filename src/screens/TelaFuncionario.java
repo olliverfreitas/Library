@@ -1,29 +1,57 @@
 package screens;
 
+import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
-import entities.Funcionario;
 import entities.dao.FuncionarioDao;
+import entities.Funcionario;
+
+import resources.Cores;
 
 public class TelaFuncionario implements ActionListener {
 	Funcionario fun;
 	FuncionarioDao fd = new FuncionarioDao();
+	Cores cor = new Cores();
+	ImageIcon icone = new ImageIcon("src/resources/images/fun.png");
+	
+
 
 	JFrame tela = new JFrame("Cadastro de Funcionarios");
 	JPanel painel = new JPanel();
 
+	JLabel lbImg = new JLabel(icone);
+
 	JLabel lbmatricula = new JLabel("Matricula: ");
+
+
 	JLabel lbnome = new JLabel("Nome: ");
 	JLabel lbnasc = new JLabel("Nascimento: ");
+	JLabel lbsexo = new JLabel("Sexo: ");
+	JCheckBox checkBoxM = new JCheckBox("Masculino");
+	JCheckBox checkBoxF = new JCheckBox("Feminino");
+	JCheckBox checkBoxO = new JCheckBox("Outro");
+
+
 	JLabel lbcargo = new JLabel("Cargo: ");
+	String[] cargos = { "Selecione um cargo","Gerente", "Atendente", "Estoquista", "Estagiario" };
+	JComboBox<String> menucargos = new JComboBox<>(cargos);
+	JLabel lbcargos = new JLabel("Cargo: ");
+
+
+
 	JLabel lbemail = new JLabel("Email: ");
 	JLabel lbsenha = new JLabel("Senha: ");
 
@@ -40,62 +68,130 @@ public class TelaFuncionario implements ActionListener {
 	JButton btexcluir = new JButton("Excluir");
 	JButton btpesq = new JButton("Pesquisar");
 
-	void criarTela() {
-
-		tela.setSize(500, 400);
+	 public void abrirTela(){
+	// ------------ Customização da tela ------------
+		tela.setSize(550, 450); 
 		tela.setLocation(550, 250);
 		painel.setLayout(null);
-		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// MATRÍCULA + BOTÃO PESQUISAR
 		lbmatricula.setBounds(30, 20, 100, 30);
+		lbmatricula.setFont(new Font("Century Gothic", Font.BOLD, 12));
+		lbmatricula.setForeground(cor.getBranco());
+
 		txtmatricula.setBounds(120, 20, 180, 30);
 		txtmatricula.setEnabled(false);
+		txtmatricula.setBackground(java.awt.Color.LIGHT_GRAY);
 
-		btpesq.setBounds(310, 20, 120, 30);
-		btpesq.addActionListener(this);
-		btpesq.setEnabled(false);
+		 btpesq.setBounds(310, 20, 120, 30);
+		 btpesq.setBackground(cor.getVerdeClaro());
+		 btpesq.setForeground(java.awt.Color.WHITE);
+		 btpesq.addActionListener(this);
+		 btpesq.setEnabled(false);
 
-		// NOME + BOTÃO PESQUISAR
-		lbnome.setBounds(30, 60, 100, 30);
-		txtnome.setBounds(120, 60, 180, 30);
+		// IMAGEM
+		lbImg.setBounds(250, 150, 300, 200);
+
+
+		// NOME 
+		lbnome.setBounds(30, 70, 100, 30);
+		lbnome.setFont(new Font("Century Gothic", Font.BOLD, 12));
+		lbnome.setForeground(cor.getBranco()); 
+		txtnome.setBounds(120, 70, 180, 30);
 
 		// NASCIMENTO
-		lbnasc.setBounds(30, 100, 100, 30);
-		txtnasc.setBounds(120, 100, 180, 30);
+		lbnasc.setBounds(30, 120, 100, 30);
+		lbnasc.setFont(new Font("Century Gothic", Font.BOLD, 12));
+		lbnasc.setForeground(cor.getBranco()); 
+		txtnasc.setBounds(120, 120, 70, 30);
+
+		// SEXO
+		lbsexo.setBounds(202, 75, 200, 100);
+		lbsexo.setForeground(cor.getBranco());
+		
+
+		//CheckBox
+		checkBoxM.setBounds(200, 130, 100, 30);
+		checkBoxM.setBackground(cor.getVerdeEscuro());
+		checkBoxM.setForeground(cor.getBranco());
+		checkBoxM.setFocusPainted(false);
+        checkBoxM.addActionListener(this);
+        checkBoxM.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		checkBoxF.setBounds(300, 130, 100, 30);
+		checkBoxF.setBackground(cor.getVerdeEscuro());
+		checkBoxF.setForeground(cor.getBranco());
+		checkBoxF.setFocusPainted(false);
+		checkBoxF.addActionListener(this);
+		checkBoxF.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		checkBoxO.setBounds(400, 130, 100, 30);
+		checkBoxO.setBackground(cor.getVerdeEscuro());
+		checkBoxO.setForeground(cor.getBranco());
+		checkBoxO.setFocusPainted(false);
+		checkBoxO.addActionListener(this);
+		checkBoxO.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 
 		// CARGO
-		lbcargo.setBounds(30, 140, 100, 30);
-		txtcargo.setBounds(120, 140, 180, 30);
+		lbcargos.setBounds(30, 170, 100, 30);
+		lbcargos.setFont(new Font("Century Gothic", Font.BOLD, 12));
+		lbcargos.setForeground(cor.getBranco()); 
+		menucargos.setBounds(120, 170, 180, 30);
+		menucargos.setBackground(cor.getBranco());
+		menucargos.setBorder(new LineBorder(cor.getVerdeClaro(), 3));
+		menucargos.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		//txtcargo.setBounds(120, 140, 180, 30);
 
 		// EMAIL
-		lbemail.setBounds(30, 180, 100, 30);
-		txtemail.setBounds(120, 180, 180, 30);
+		lbemail.setBounds(30, 220, 100, 30);
+		lbemail.setFont(new Font("Century Gothic", Font.BOLD, 12));
+		lbemail.setForeground(cor.getBranco()); 
+		txtemail.setBounds(120, 220, 180, 30);
 
 		// SENHA
-		lbsenha.setBounds(30, 220, 100, 30);
-		txtsenha.setBounds(120, 220, 180, 30);
+		lbsenha.setBounds(30, 270, 100, 30);
+		lbsenha.setFont(new Font("Century Gothic", Font.BOLD, 12));
+		lbsenha.setForeground(cor.getBranco()); 
+		txtsenha.setBounds(120, 270, 180, 30);
 
 		// BOTÕES
-		btsalvar.setBounds(30, 280, 90, 30);
+		btsalvar.setBounds(70, 340, 90, 30);
 		btsalvar.addActionListener(this);
-		btlistar.setBounds(130, 280, 90, 30);
+		btsalvar.setBackground(cor.getVerdeClaro());
+		btsalvar.setForeground(cor.getBranco());
+
+
+		btlistar.setBounds(170, 340, 90, 30);
 		btlistar.addActionListener(this);
-		btalterar.setBounds(230, 280, 90, 30);
+		btlistar.setBackground(cor.getVerdeClaro());
+		btlistar.setForeground(cor.getBranco());
+
+		btalterar.setBounds(270, 340, 90, 30);
 		btalterar.addActionListener(this);
-		btexcluir.setBounds(330, 280, 90, 30);
+		btalterar.setBackground(cor.getVerdeClaro());
+		btalterar.setForeground(cor.getBranco());
+
+		btexcluir.setBounds(370, 340, 90, 30);
 		btexcluir.addActionListener(this);
+		btexcluir.setBackground(cor.getVerdeClaro());
+		btexcluir.setForeground(cor.getBranco());
 
-
+// ------------ Adicionando os componentes ao painel ------------
 		painel.add(lbnome);
 		painel.add(txtnome);
 		painel.add(btpesq);
 
 		painel.add(lbnasc);
 		painel.add(txtnasc);
+		painel.add(checkBoxM);
+		painel.add(checkBoxF);
+		painel.add(checkBoxO);
+		painel.add(lbsexo);
 
-		painel.add(lbcargo);
-		painel.add(txtcargo);
+		painel.add(lbcargos);
+		painel.add(menucargos);
 
 		painel.add(lbmatricula);
 		painel.add(txtmatricula);
@@ -111,8 +207,14 @@ public class TelaFuncionario implements ActionListener {
 		painel.add(btalterar);
 		painel.add(btexcluir);
 
+		painel.add(lbImg);
+
+		painel.setBackground(cor.getBranco());
+
 		tela.getContentPane().add(painel);
 		tela.setVisible(true);
+
+		painel.setBackground(cor.getVerdeEscuro());
 	}
 
 	@Override
@@ -135,6 +237,7 @@ public class TelaFuncionario implements ActionListener {
 
 				fun = new Funcionario(n, i, c, m, a, s);
 				fd.salvar(fun);
+				txtmatricula.setBackground(cor.getBranco());
 				JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
 
 				// Limpa os campos
@@ -221,5 +324,23 @@ public class TelaFuncionario implements ActionListener {
 
 			}
 		}
+		
+		if (e.getSource() == checkBoxM) {
+			checkBoxF.setSelected(false);
+			checkBoxO.setSelected(false);
+
+    }
+		if (e.getSource() == checkBoxF) {
+			checkBoxM.setSelected(false);
+			checkBoxO.setSelected(false);
+
+		}
+		if (e.getSource() == checkBoxO) {
+			checkBoxM.setSelected(false);
+			checkBoxF.setSelected(false);
+
+		}
 	}
+
 }
+
